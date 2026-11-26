@@ -1,5 +1,5 @@
 // SMA HR Service Worker — bump VERSION on every release so phones pick up the new files.
-const VERSION = 'v5.1.1';
+const VERSION = 'v5.2.0';
 const CACHE = 'sma-hr-' + VERSION;
 const PRECACHE = [
   './', './index.html', './app.css?v=5', './app.bundle.min.js', './firebase.bundle.min.js', './pwa.bundle.min.js',

@@ -47,7 +47,12 @@
                             <span class="text-xs font-bold uppercase tracking-wider flex items-center space-x-2 text-sky-300">
                                 <i class="fa-solid fa-bell"></i><span>Notifications & Alerts</span>
                             </span>
-                            <button onclick="clearNotifications()" class="text-[10px] text-slate-400 hover:text-white transition">Clear All</button>
+                            <div class="flex items-center space-x-3">
+                                <button onclick="clearNotifications()" class="text-[11px] text-slate-400 hover:text-white transition font-medium">Clear All</button>
+                                <button onclick="toggleNotificationDrawer()" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition text-sm leading-none" title="Close Notifications">
+                                    <i class="fa-solid fa-xmark text-xs"></i>
+                                </button>
+                            </div>
                         </div>
                         <div id="notificationList" class="max-h-72 overflow-y-auto divide-y divide-slate-800/60 text-xs">
                             <div class="p-4 text-center text-slate-400 text-xs">No new notifications</div>
@@ -74,6 +79,9 @@
                     <span id="userBadge" class="text-xs font-bold text-indigo-100 block"></span>
                     <span class="text-[10px] text-sky-300">Active Session</span>
                 </div>
+                <button id="navDirectorResetBtn" onclick="openResetAttendanceModal()" class="hidden text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white px-3 py-2 rounded-xl transition border border-rose-400/30 flex items-center space-x-1.5 shadow-md shadow-rose-600/20" title="Director: Monthly Database Reset & Full Archive">
+                    <i class="fa-solid fa-database text-xs"></i><span class="hidden md:inline">Reset Monthly Data</span>
+                </button>
                 <button onclick="FB.changePassword()" class="text-xs font-semibold bg-white/10 hover:bg-white/20 text-white px-3.5 py-2 rounded-xl transition border border-white/15 flex items-center space-x-1.5 shadow-sm"><i class="fa-solid fa-key"></i><span class="hidden sm:inline">Password</span></button>
                 <button onclick="logout()" class="text-xs font-semibold bg-white/10 hover:bg-white/20 text-white px-3.5 py-2 rounded-xl transition border border-white/15 flex items-center space-x-1.5 shadow-sm">
                     <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
@@ -657,6 +665,34 @@
             
             <div id="tabDirectorView" class="hidden space-y-6">
                 
+                <!-- Director Quick Maintenance & Cloud Reset Card -->
+                <div class="glass p-5 sm:p-6 rounded-3xl shadow-xl border border-rose-500/30 bg-gradient-to-r from-rose-950/20 via-slate-900/60 to-slate-900/40 relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="space-y-1">
+                            <div class="inline-flex items-center space-x-2 text-rose-400 text-xs font-bold uppercase tracking-wider bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span>Director Maintenance & Cloud Storage Management</span>
+                            </div>
+                            <h3 class="text-lg font-black text-white pt-1 flex items-center space-x-2">
+                                <span>Monthly Archive & Firestore Reset</span>
+                            </h3>
+                            <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                                Archives all data (Attendance, Profiles, Salary Payouts, Leave Applications) into a multi-sheet Master Excel file before wiping old punch records from Firebase to keep your quota 100% free indefinitely.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button type="button" onclick="downloadMasterDataArchive('SMA_HR_Master_Backup_' + new Date().toISOString().slice(0,10))" class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center space-x-2 shadow-lg shadow-emerald-900/30">
+                                <i class="fa-solid fa-file-excel"></i>
+                                <span>Backup All To Excel (4 Sheets)</span>
+                            </button>
+                            <button type="button" onclick="openResetAttendanceModal()" class="bg-rose-600 hover:bg-rose-700 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center space-x-2 shadow-lg shadow-rose-900/30">
+                                <i class="fa-solid fa-trash-can-arrow-up"></i>
+                                <span>Reset & Archive Records</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="glass p-5 sm:p-6 rounded-3xl shadow-xl border border-white/50 dark:border-slate-800 space-y-4">
                     <div class="flex items-center justify-between">
                         <h3 class="text-base font-black text-slate-800 dark:text-white flex items-center space-x-2">
@@ -698,6 +734,10 @@
                             <button onclick="exportDirectorExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-3 rounded-xl transition flex items-center space-x-2 shadow-md shadow-emerald-600/25">
                                 <i class="fa-solid fa-file-excel text-base"></i>
                                 <span>Download Attendance Excel / CSV</span>
+                            </button>
+                            <button type="button" onclick="openResetAttendanceModal()" class="bg-rose-600 hover:bg-rose-700 active:scale-95 text-white text-xs font-bold px-4 py-3 rounded-xl transition flex items-center space-x-2 shadow-md shadow-rose-600/25">
+                                <i class="fa-solid fa-trash-can-arrow-up text-base"></i>
+                                <span>Reset & Archive Records</span>
                             </button>
                         </div>
                     </div>
